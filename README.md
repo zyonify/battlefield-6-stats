@@ -1,10 +1,10 @@
-# Battlefield 2042 Stats Tracker
+# Battlefield 6 Stats Tracker
 
-A modern web application for tracking Battlefield 2042 player statistics and browsing live servers.
+A modern web application for tracking Battlefield 6 player statistics and browsing live servers.
 
 ## Features
 
-- **Player Search** - Look up any BF2042 player by exact name
+- **Player Search** - Look up any BF6 player by exact name
 - **Platform Support** - Filter by PC, PlayStation, Xbox, or Steam
 - **Live Server Browser** - View active servers with player counts and maps
 - **Recent Searches** - Quick access to previously searched players
