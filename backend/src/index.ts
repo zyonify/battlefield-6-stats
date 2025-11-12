@@ -3,6 +3,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import pool from './config/database.js';
 import statsRoutes from './routes/stats.js';
+import leaderboardRoutes from './routes/leaderboard.js';
 import { startCronJobs } from './services/cronJobs.js';
 
 dotenv.config();
@@ -19,6 +20,7 @@ app.use(express.json());
 
 // Routes
 app.use('/api/stats', statsRoutes);
+app.use('/api/leaderboard', leaderboardRoutes);
 
 // Health check
 app.get('/health', async (req, res) => {

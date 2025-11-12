@@ -167,4 +167,77 @@ export const analyticsApi = {
   },
 };
 
+// Leaderboard API
+export const leaderboardApi = {
+  // Get leaderboard
+  getLeaderboard: async (orderBy: string = 'kd_ratio', limit: number = 100, offset: number = 0) => {
+    try {
+      const response = await fetch(
+        `${BACKEND_URL}/api/leaderboard?orderBy=${orderBy}&limit=${limit}&offset=${offset}`
+      );
+      if (!response.ok) throw new Error('Failed to fetch leaderboard');
+      return await response.json();
+    } catch (error) {
+      console.error('Leaderboard API Error:', error);
+      return { error: error instanceof Error ? error.message : 'An error occurred' };
+    }
+  },
+
+  // Get player rank
+  getPlayerRank: async (playerId: string, orderBy: string = 'kd_ratio') => {
+    try {
+      const response = await fetch(`${BACKEND_URL}/api/leaderboard/rank/${playerId}?orderBy=${orderBy}`);
+      if (!response.ok) throw new Error('Failed to fetch player rank');
+      return await response.json();
+    } catch (error) {
+      console.error('Leaderboard API Error:', error);
+      return { error: error instanceof Error ? error.message : 'An error occurred' };
+    }
+  },
+
+  // Get leaderboard stats
+  getLeaderboardStats: async () => {
+    try {
+      const response = await fetch(`${BACKEND_URL}/api/leaderboard/stats`);
+      if (!response.ok) throw new Error('Failed to fetch leaderboard stats');
+      return await response.json();
+    } catch (error) {
+      console.error('Leaderboard API Error:', error);
+      return { error: error instanceof Error ? error.message : 'An error occurred' };
+    }
+  },
+
+  // Batch update leaderboard
+  batchUpdate: async (playerIds: string[]) => {
+    try {
+      const response = await fetch(`${BACKEND_URL}/api/leaderboard/batch-update`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ playerIds }),
+      });
+      if (!response.ok) throw new Error('Failed to batch update leaderboard');
+      return await response.json();
+    } catch (error) {
+      console.error('Leaderboard API Error:', error);
+      return { error: error instanceof Error ? error.message : 'An error occurred' };
+    }
+  },
+
+  // Fetch multiple players
+  fetchMultiple: async (playerIds: string[]) => {
+    try {
+      const response = await fetch(`${BACKEND_URL}/api/leaderboard/fetch-multiple`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ playerIds }),
+      });
+      if (!response.ok) throw new Error('Failed to fetch multiple players');
+      return await response.json();
+    } catch (error) {
+      console.error('Leaderboard API Error:', error);
+      return { error: error instanceof Error ? error.message : 'An error occurred' };
+    }
+  },
+};
+
 export { API_BASE_URL, BACKEND_URL };
