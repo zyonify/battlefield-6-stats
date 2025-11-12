@@ -1,9 +1,11 @@
 import express from 'express';
 import cors from 'cors';
+import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
 import pool from './config/database.js';
 import statsRoutes from './routes/stats.js';
 import leaderboardRoutes from './routes/leaderboard.js';
+import authRoutes from './routes/auth.js';
 import { startCronJobs } from './services/cronJobs.js';
 
 dotenv.config();
@@ -17,8 +19,10 @@ app.use(cors({
   credentials: true,
 }));
 app.use(express.json());
+app.use(cookieParser());
 
 // Routes
+app.use('/api/auth', authRoutes);
 app.use('/api/stats', statsRoutes);
 app.use('/api/leaderboard', leaderboardRoutes);
 

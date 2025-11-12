@@ -1,9 +1,42 @@
 import { Link } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
 export default function Home() {
+  const { isAuthenticated, user } = useAuth();
+
   return (
     <div className="min-h-screen bg-gray-900 text-white">
       <div className="container mx-auto px-4 py-16">
+        {/* User Navigation */}
+        <div className="flex justify-end mb-8">
+          {isAuthenticated ? (
+            <div className="flex items-center gap-4">
+              <span className="text-gray-400">Welcome, {user?.username}!</span>
+              <Link
+                to="/profile"
+                className="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors"
+              >
+                My Profile
+              </Link>
+            </div>
+          ) : (
+            <div className="flex gap-4">
+              <Link
+                to="/login"
+                className="px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-lg transition-colors"
+              >
+                Login
+              </Link>
+              <Link
+                to="/register"
+                className="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors"
+              >
+                Register
+              </Link>
+            </div>
+          )}
+        </div>
+
         <div className="text-center mb-16">
           <h1 className="text-6xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent">
             BF6 Stats Hub

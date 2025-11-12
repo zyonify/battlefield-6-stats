@@ -240,4 +240,114 @@ export const leaderboardApi = {
   },
 };
 
+// Authentication API
+export const authApi = {
+  // Register new user
+  register: async (username: string, email: string, password: string, playerName?: string, playerId?: string) => {
+    try {
+      const response = await fetch(`${BACKEND_URL}/api/auth/register`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, email, password, playerName, playerId }),
+      });
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.error || 'Registration failed');
+      }
+      return await response.json();
+    } catch (error) {
+      console.error('Auth API Error:', error);
+      return { error: error instanceof Error ? error.message : 'An error occurred' };
+    }
+  },
+
+  // Login
+  login: async (username: string, password: string) => {
+    try {
+      const response = await fetch(`${BACKEND_URL}/api/auth/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password }),
+      });
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.error || 'Login failed');
+      }
+      return await response.json();
+    } catch (error) {
+      console.error('Auth API Error:', error);
+      return { error: error instanceof Error ? error.message : 'An error occurred' };
+    }
+  },
+
+  // Get current user
+  getMe: async (token: string) => {
+    try {
+      const response = await fetch(`${BACKEND_URL}/api/auth/me`, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+      if (!response.ok) throw new Error('Failed to fetch user data');
+      return await response.json();
+    } catch (error) {
+      console.error('Auth API Error:', error);
+      return { error: error instanceof Error ? error.message : 'An error occurred' };
+    }
+  },
+
+  // Update profile
+  updateProfile: async (token: string, data: { playerName?: string; playerId?: string; avatarUrl?: string; bio?: string }) => {
+    try {
+      const response = await fetch(`${BACKEND_URL}/api/auth/profile`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+        body: JSON.stringify(data),
+      });
+      if (!response.ok) throw new Error('Failed to update profile');
+      return await response.json();
+    } catch (error) {
+      console.error('Auth API Error:', error);
+      return { error: error instanceof Error ? error.message : 'An error occurred' };
+    }
+  },
+
+  // Change password
+  changePassword: async (token: string, currentPassword: string, newPassword: string) => {
+    try {
+      const response = await fetch(`${BACKEND_URL}/api/auth/change-password`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+        body: JSON.stringify({ currentPassword, newPassword }),
+      });
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.error || 'Failed to change password');
+      }
+      return await response.json();
+    } catch (error) {
+      console.error('Auth API Error:', error);
+      return { error: error instanceof Error ? error.message : 'An error occurred' };
+    }
+  },
+
+  // Get user by ID
+  getUserById: async (userId: string) => {
+    try {
+      const response = await fetch(`${BACKEND_URL}/api/auth/users/${userId}`);
+      if (!response.ok) throw new Error('Failed to fetch user');
+      return await response.json();
+    } catch (error) {
+      console.error('Auth API Error:', error);
+      return { error: error instanceof Error ? error.message : 'An error occurred' };
+    }
+  },
+};
+
 export { API_BASE_URL, BACKEND_URL };
