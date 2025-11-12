@@ -82,4 +82,89 @@ export const contentApi = {
   },
 };
 
-export { API_BASE_URL };
+// Analytics API (Backend)
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000';
+
+export const analyticsApi = {
+  // Get player stats history
+  getPlayerHistory: async (playerId: string, days: number = 30) => {
+    try {
+      const response = await fetch(`${BACKEND_URL}/api/stats/history/${playerId}?days=${days}`);
+      if (!response.ok) throw new Error('Failed to fetch player history');
+      return await response.json();
+    } catch (error) {
+      console.error('Analytics API Error:', error);
+      return { error: error instanceof Error ? error.message : 'An error occurred' };
+    }
+  },
+
+  // Get K/D trend
+  getKDTrend: async (playerId: string, days: number = 30) => {
+    try {
+      const response = await fetch(`${BACKEND_URL}/api/stats/trends/kd/${playerId}?days=${days}`);
+      if (!response.ok) throw new Error('Failed to fetch K/D trend');
+      return await response.json();
+    } catch (error) {
+      console.error('Analytics API Error:', error);
+      return { error: error instanceof Error ? error.message : 'An error occurred' };
+    }
+  },
+
+  // Get win rate trend
+  getWinRateTrend: async (playerId: string, days: number = 30) => {
+    try {
+      const response = await fetch(`${BACKEND_URL}/api/stats/trends/winrate/${playerId}?days=${days}`);
+      if (!response.ok) throw new Error('Failed to fetch win rate trend');
+      return await response.json();
+    } catch (error) {
+      console.error('Analytics API Error:', error);
+      return { error: error instanceof Error ? error.message : 'An error occurred' };
+    }
+  },
+
+  // Compare players
+  comparePlayers: async (playerIds: string[]) => {
+    try {
+      const response = await fetch(`${BACKEND_URL}/api/stats/compare`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ playerIds }),
+      });
+      if (!response.ok) throw new Error('Failed to compare players');
+      return await response.json();
+    } catch (error) {
+      console.error('Analytics API Error:', error);
+      return { error: error instanceof Error ? error.message : 'An error occurred' };
+    }
+  },
+
+  // Track a player
+  trackPlayer: async (playerId: string, playerName: string, platform: string = 'pc') => {
+    try {
+      const response = await fetch(`${BACKEND_URL}/api/stats/track`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ playerId, playerName, platform }),
+      });
+      if (!response.ok) throw new Error('Failed to track player');
+      return await response.json();
+    } catch (error) {
+      console.error('Analytics API Error:', error);
+      return { error: error instanceof Error ? error.message : 'An error occurred' };
+    }
+  },
+
+  // Get tracked players
+  getTrackedPlayers: async () => {
+    try {
+      const response = await fetch(`${BACKEND_URL}/api/stats/tracked`);
+      if (!response.ok) throw new Error('Failed to fetch tracked players');
+      return await response.json();
+    } catch (error) {
+      console.error('Analytics API Error:', error);
+      return { error: error instanceof Error ? error.message : 'An error occurred' };
+    }
+  },
+};
+
+export { API_BASE_URL, BACKEND_URL };

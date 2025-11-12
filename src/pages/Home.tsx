@@ -13,7 +13,7 @@ export default function Home() {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+        <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
           <Link
             to="/player"
             className="bg-gray-800 hover:bg-gray-700 transition-colors p-8 rounded-lg border border-gray-700 hover:border-blue-500"
@@ -21,7 +21,18 @@ export default function Home() {
             <div className="text-4xl mb-4">📊</div>
             <h2 className="text-2xl font-bold mb-2">Player Stats</h2>
             <p className="text-gray-400">
-              Search for players and view detailed statistics, performance trends, and compare with others
+              Search for players and view detailed statistics and performance metrics
+            </p>
+          </Link>
+
+          <Link
+            to="/analytics"
+            className="bg-gray-800 hover:bg-gray-700 transition-colors p-8 rounded-lg border border-gray-700 hover:border-purple-500"
+          >
+            <div className="text-4xl mb-4">📈</div>
+            <h2 className="text-2xl font-bold mb-2">Analytics</h2>
+            <p className="text-gray-400">
+              View historical trends, compare players, and track performance over time
             </p>
           </Link>
 

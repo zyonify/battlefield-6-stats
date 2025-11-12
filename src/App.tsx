@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import PlayerSearch from './pages/PlayerSearch';
 import ServerBrowser from './pages/ServerBrowser';
+import PlayerAnalytics from './pages/PlayerAnalytics';
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/player" element={<PlayerSearch />} />
         <Route path="/servers" element={<ServerBrowser />} />
+        <Route path="/analytics" element={<PlayerAnalytics />} />
       </Routes>
     </BrowserRouter>
   );

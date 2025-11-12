@@ -1,0 +1,47 @@
+import express from 'express';
+import cors from 'cors';
+import dotenv from 'dotenv';
+import pool from './config/database.js';
+import statsRoutes from './routes/stats.js';
+import { startCronJobs } from './services/cronJobs.js';
+
+dotenv.config();
+
+const app = express();
+const PORT = process.env.PORT || 5000;
+
+// Middleware
+app.use(cors({
+  origin: process.env.FRONTEND_URL || 'http://localhost:5173',
+  credentials: true,
+}));
+app.use(express.json());
+
+// Routes
+app.use('/api/stats', statsRoutes);
+
+// Health check
+app.get('/health', async (req, res) => {
+  try {
+    await pool.query('SELECT NOW()');
+    res.json({ status: 'ok', database: 'connected' });
+  } catch (error) {
+    res.status(500).json({ status: 'error', database: 'disconnected' });
+  }
+});
+
+// Start server
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on port ${PORT}`);
+  console.log(`📊 API: http://localhost:${PORT}`);
+
+  // Start cron jobs for periodic stat fetching
+  startCronJobs();
+});
+
+// Graceful shutdown
+process.on('SIGTERM', async () => {
+  console.log('SIGTERM received, closing server...');
+  await pool.end();
+  process.exit(0);
+});
