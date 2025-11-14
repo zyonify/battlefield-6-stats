@@ -121,12 +121,12 @@ router.post('/compare', async (req, res) => {
       [playerIds]
     );
 
-    res.json({
+    return res.json({
       players: result.rows,
     });
   } catch (error) {
     console.error('Error comparing players:', error);
-    res.status(500).json({ error: 'Failed to compare players' });
+    return res.status(500).json({ error: 'Failed to compare players' });
   }
 });
 
@@ -144,13 +144,13 @@ router.post('/track', async (req, res) => {
     // Immediately fetch stats for this player
     await fetchAndStorePlayerStats(playerId, playerName);
 
-    res.json({
+    return res.json({
       success: true,
       message: `${playerName} is now being tracked`,
     });
   } catch (error) {
     console.error('Error tracking player:', error);
-    res.status(500).json({ error: 'Failed to track player' });
+    return res.status(500).json({ error: 'Failed to track player' });
   }
 });
 
