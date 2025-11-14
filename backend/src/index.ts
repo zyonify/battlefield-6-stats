@@ -2,11 +2,11 @@ import express from 'express';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
-import pool from './config/database.js';
-import statsRoutes from './routes/stats.js';
-import leaderboardRoutes from './routes/leaderboard.js';
-import authRoutes from './routes/auth.js';
-import { startCronJobs } from './services/cronJobs.js';
+import pool from './config/database';
+import statsRoutes from './routes/stats';
+import leaderboardRoutes from './routes/leaderboard';
+import authRoutes from './routes/auth';
+import { startCronJobs } from './services/cronJobs';
 
 dotenv.config();
 

@@ -1,6 +1,7 @@
 import express from 'express';
-import pool from '../config/database.js';
-import { fetchAndStorePlayerStats, addTrackedPlayer, collectAllTrackedPlayerStats } from '../services/statsCollector.js';
+import pool from '../config/database';
+import { fetchAndStorePlayerStats, addTrackedPlayer } from '../services/statsCollector';
+import { collectAllTrackedPlayerStats } from '../services/cronJobs';
 
 const router = express.Router();
 

@@ -1,5 +1,5 @@
 import cron from 'node-cron';
-import { fetchAndStorePlayerStats, fetchTrackedPlayers, updateTrackedPlayerFetchTime } from './statsCollector.js';
+import { fetchAndStorePlayerStats, fetchTrackedPlayers, updateTrackedPlayerFetchTime } from './statsCollector';
 
 export function startCronJobs() {
   console.log('⏰ Starting cron jobs...');

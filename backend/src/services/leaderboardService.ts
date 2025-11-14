@@ -1,5 +1,5 @@
-import pool from '../config/database.js';
-import { PlayerBatchData } from './batchFetcher.js';
+import pool from '../config/database';
+import { PlayerBatchData } from './batchFetcher';
 
 export async function updateLeaderboardEntry(playerData: PlayerBatchData) {
   try {

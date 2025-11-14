@@ -1,5 +1,5 @@
 import axios from 'axios';
-import pool from '../config/database.js';
+import pool from '../config/database';
 
 const BF6_API_BASE = 'https://api.gametools.network/bf6';
 

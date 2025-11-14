@@ -1,11 +1,11 @@
 import express from 'express';
-import { fetchMultiplePlayers } from '../services/batchFetcher.js';
+import { fetchMultiplePlayers } from '../services/batchFetcher';
 import {
   batchUpdateLeaderboard,
   getLeaderboard,
   getPlayerRank,
   getLeaderboardStats,
-} from '../services/leaderboardService.js';
+} from '../services/leaderboardService';
 
 const router = express.Router();
 
